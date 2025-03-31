@@ -32,11 +32,9 @@ report 60111 "AGTtask31march"
                         ResetItemTotal := false;
                         InvoicedQuantity := "Invoiced Quantity";
                         CostAmountActual := "Cost Amount (Actual)";
-                        DiscountAmount := "Discount Amount";
                     end else begin
                         InvoicedQuantity += "Invoiced Quantity";
                         CostAmountActual += "Cost Amount (Actual)";
-                        DiscountAmount += "Discount Amount";
                     end;
 
                     if not (ValueEntry.Next() = 0) then begin
@@ -55,17 +53,6 @@ report 60111 "AGTtask31march"
                     if ValueEntry.FindSet() then;
                 end;
             }
-
-            trigger OnAfterGetRecord()
-            begin
-                if PrintOnlyOnePerPageReq then
-                    PageGroupNo := PageGroupNo + 1;
-            end;
-
-            trigger OnPreDataItem()
-            begin
-                PageGroupNo := 1;
-            end;
         }
     }
 
@@ -114,7 +101,6 @@ report 60111 "AGTtask31march"
         InvoicedQuantity: Decimal;
         PageGroupNo: Integer;
         CostAmountActual: Decimal;
-        DiscountAmount: Decimal;
         PeriodTxt: Label 'Period: %1', Comment = '%1 - period text';
         TableFilterTxt: Label '%1: %2', Locked = true;
         StartDate: Date;
@@ -122,9 +108,4 @@ report 60111 "AGTtask31march"
 
     protected var
         ResetItemTotal: Boolean;
-
-    procedure InitializeRequest(NewPrintOnlyOnePerPage: Boolean)
-    begin
-        PrintOnlyOnePerPageReq := NewPrintOnlyOnePerPage;
-    end;
 }
