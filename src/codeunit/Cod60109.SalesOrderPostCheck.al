@@ -13,7 +13,6 @@ codeunit 60109 "Sales Order Post Check"
             repeat
                 if Item.Get(SalesLine."No.") then begin
                     Item.CalcFields(Inventory);
-
                     ThresholdQty := Item.Inventory;
                     if SalesLine.Quantity > ThresholdQty then begin
                         Error('Warning: The quantity entered for item %1 exceeds the defined threshold.', Item."No.");
